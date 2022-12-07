@@ -1,7 +1,4 @@
-import Header from './components/Header/Header';
-import Sort from './components/Sort/Sort';
-import PizzaBlock from './components/PizzaBlock/PizzaBlock';
-import Categories from './components/Categories/Categories'
+import {Sort, Header, PizzaBlock, Categories} from './components';
 import './scss/app.scss';
 import { useState, useEffect } from 'react';
 
