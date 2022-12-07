@@ -1,6 +1,10 @@
-import {Sort, Header, PizzaBlock, Categories} from './components';
+import Header from './components/Header/Header';
+import Sort from './components/Sort/Sort';
+import PizzaBlock from './components/PizzaBlock/PizzaBlock';
+import Categories from './components/Categories/Categories';
 import './scss/app.scss';
 import { useState, useEffect } from 'react';
+import Skeleton from './components/PizzaBlock/Skeleton';
 
 
 
@@ -30,12 +34,13 @@ function App() {
 					</div>
 					<h2 className="content__title">Все пиццы</h2>
 					<div className="content__items">
-						{items.map((el) => (
-							<PizzaBlock
+						{items.map((el) => {
+							return (
+							<Skeleton
 								key={el.id}
 								{...el}
-							/>
-						))}
+							/> ?? <Skeleton/>
+						)})}
 					</div>
 				</div>
 			</div>
