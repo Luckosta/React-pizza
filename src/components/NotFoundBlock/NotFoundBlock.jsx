@@ -1,17 +1,13 @@
-import React from 'react';
-import styles from './NotFoundBlock.module.scss';
 
-console.log(styles)
-
-const NotFoundBlock = () => {
+function NotFoundBlock() {
 	return (
-		<div className={styles.root}>
+		<div className='notfound__contnet'>
 			<span>😔</span>
 			<br />
 			<h1>
 				Ничего не найдено :C
 			</h1>
-			<p className={styles.description}>Данной страницы нет в нашем магазине</p>
+			<p className='notfound__contnet--description'>Данной страницы нет в нашем магазине</p>
 		</div>
 	)
 }
