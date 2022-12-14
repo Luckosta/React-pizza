@@ -1,5 +1,5 @@
-import React from "react"
-import ContentLoader from "react-content-loader"
+import React from "react";
+import ContentLoader from "react-content-loader";
 
 const Skeleton = () => (
 	<ContentLoader
@@ -21,4 +21,4 @@ const Skeleton = () => (
 	</ContentLoader>
 )
 
-export default Skeleton
+export default Skeleton;
