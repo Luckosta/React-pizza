@@ -6,10 +6,12 @@ import { useEffect, useState } from 'react';
 
 
 
-function Home() {
+
+function Home({ searchValue }) {
 
 
-	
+
+
 
 	const [items, setItems] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -23,11 +25,19 @@ function Home() {
 
 
 	useEffect(() => {
-		setIsLoading(true)
+		setIsLoading(true);
+		
+		const category = categoryId !== 0 ? `category=${categoryId}` : '';
+		const stortBy = sortState.sortProp.replace('-', '');
+		const oreder = sortState.sortProp[0] === '-' ? 'desc' : 'asc';
+		const search = searchValue ? `&search=${searchValue}` : '';
+
 		fetch(`https://638c6f4dd2fc4a058a57acbe.mockapi.io/items?
-		${categoryId !== 0 ? `category=${categoryId}`: ''}
-		&sortBy=${sortState.sortProp.replace('-', '')}
-		&order=${sortState.sortProp[0] === '-'? 'desc' : 'asc'}`)
+		${category}
+		&sortBy=${stortBy}
+		&order=${oreder}
+		${search}`
+		)
 			.then(res => {
 				if (!res.ok) {
 					throw loadingError;
@@ -39,7 +49,7 @@ function Home() {
 			.then(array => setItems(array))
 
 		window.scrollTo(0, 0);
-	}, [categoryId, sortState]);
+	}, [categoryId, sortState, searchValue]);
 
 
 	return (
