@@ -4,7 +4,7 @@ import logoIcon from '../../assets/img/pizza-logo.svg';
 import Search from '../Search/Search';
 
 
-function Header({value, changeValue}) {
+function Header() {
 
 
 
@@ -19,7 +19,7 @@ function Header({value, changeValue}) {
 					</div>
 				</div>
 			</Link>
-			<Search value ={value} changeValue ={changeValue}/>
+			<Search />
 			<div className="header__cart">
 				<Link to="/cart" className="button button--cart">
 					<span>520 ₽</span>

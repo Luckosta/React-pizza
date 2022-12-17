@@ -2,15 +2,41 @@ import Sort from '../components/Sort/Sort';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Categories from '../components/Categories/Categories';
 import Skeleton from '../components/PizzaBlock/Skeleton';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { SearchContext } from '../App';
 
 
 
 
-function Home({ searchValue }) {
+function Home() {
 
+	const { searchValue } = useContext(SearchContext);
 
+	const request = async () => {
 
+		const category = categoryId !== 0 ? `category=${categoryId}` : '';
+		const stortBy = sortState.sortProp.replace('-', '');
+		const oreder = sortState.sortProp[0] === '-' ? 'desc' : 'asc';
+		const search = searchValue ? `&search=${searchValue}` : '';
+		const loadingError = new Error('Loading Error!');
+
+		const resp = await fetch(`https://638c6f4dd2fc4a058a57acbe.mockapi.io/items?
+	${category}
+	&sortBy=${stortBy}
+	&order=${oreder}
+	${search}`
+		)
+			.then(async res => {
+				if (!res.ok) {
+					throw loadingError;
+				} else {
+					setIsLoading(false);
+				}
+				return await res.json();
+			})
+			.then(array => setItems(array))
+
+	}
 
 
 	const [items, setItems] = useState([]);
@@ -21,33 +47,12 @@ function Home({ searchValue }) {
 		sortProp: 'rating'
 	});
 
-	const loadingError = new Error('Loading Error!');
+
 
 
 	useEffect(() => {
 		setIsLoading(true);
-		
-		const category = categoryId !== 0 ? `category=${categoryId}` : '';
-		const stortBy = sortState.sortProp.replace('-', '');
-		const oreder = sortState.sortProp[0] === '-' ? 'desc' : 'asc';
-		const search = searchValue ? `&search=${searchValue}` : '';
-
-		fetch(`https://638c6f4dd2fc4a058a57acbe.mockapi.io/items?
-		${category}
-		&sortBy=${stortBy}
-		&order=${oreder}
-		${search}`
-		)
-			.then(res => {
-				if (!res.ok) {
-					throw loadingError;
-				} else {
-					setIsLoading(false);
-				}
-				return res.json();
-			})
-			.then(array => setItems(array))
-
+		request()
 		window.scrollTo(0, 0);
 	}, [categoryId, sortState, searchValue]);
 
@@ -72,6 +77,8 @@ function Home({ searchValue }) {
 				}
 
 			</div>
+
+
 		</div>
 	)
 }
