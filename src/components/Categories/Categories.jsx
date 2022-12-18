@@ -1,10 +1,9 @@
 
-
 function Categories({value, onClickCategory}) {
 	
 
 
-	const categories = ['Все','Мясные','Вегетарианская','Гриль','Острые','Закрытые',];
+	const categories = ['Все','Мясные','Вегетарианская','Гриль','Острые','Закрытые'];
 
 
 
@@ -12,7 +11,13 @@ function Categories({value, onClickCategory}) {
 		<div className="categories">
 			<ul>
 				{categories.map((el, index)=> {
-					return <li key={index} onClick={() => onClickCategory(index)} className={value === index ? "active": ""}>{el}</li>
+					return <li 
+					key={index} 
+					onClick={() => onClickCategory(index)} 
+					className={value === index ? "active": ""}
+					>
+					{el}
+					</li>
 				})}
 			</ul>
 		</div>

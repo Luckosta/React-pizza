@@ -18,8 +18,8 @@ function Home() {
 		const stortBy = sortState.sortProp.replace('-', '');
 		const oreder = sortState.sortProp[0] === '-' ? 'desc' : 'asc';
 		const search = searchValue ? `&search=${searchValue}` : '';
-		const loadingError = new Error('Loading Error!');
 
+		
 		const resp = await fetch(`https://638c6f4dd2fc4a058a57acbe.mockapi.io/items?
 	${category}
 	&sortBy=${stortBy}
@@ -28,7 +28,7 @@ function Home() {
 		)
 			.then(async res => {
 				if (!res.ok) {
-					throw loadingError;
+					throw new Error('Loading Error!');
 				} else {
 					setIsLoading(false);
 				}

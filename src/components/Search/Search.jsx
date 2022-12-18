@@ -17,7 +17,10 @@ function Search() {
 			onChange={(event)=>setSearchValue(event.target.value)} 
 			className='search__input' 
 			placeholder='Поиск пиццы'/>
-			{searchValue && <img onClick={()=>setSearchValue('')} src={iconClose} alt="" />}
+			{searchValue && <img 
+			onClick={()=>setSearchValue('')} 
+			src={iconClose} 
+			alt="" />}
 
 		</div>
 
