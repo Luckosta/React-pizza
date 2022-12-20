@@ -6,12 +6,13 @@ import { useContext, useEffect, useState } from 'react';
 import { SearchContext } from '../App';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId } from '../redux/slices/filterSlice';
+import axios from 'axios';
 
 
 
 
 function Home() {
-
+	
 
 	const [items, setItems] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -33,22 +34,17 @@ function Home() {
 		const oreder = sortType.sortProp[0] === '-' ? 'desc' : 'asc';
 		const search = searchValue ? `&search=${searchValue}` : '';
 
-
-		const resp = await fetch(`https://638c6f4dd2fc4a058a57acbe.mockapi.io/items?
-	${category}
-	&sortBy=${stortBy}
-	&order=${oreder}
-	${search}`
-		)
-			.then(async res => {
-				if (!res.ok) {
-					throw new Error('Loading Error!');
-				} else {
-					setIsLoading(false);
-				}
-				return await res.json();
+		const resp = await axios.get(`https://638c6f4dd2fc4a058a57acbe.mockapi.io/items?
+		${category}
+		&sortBy=${stortBy}
+		&order=${oreder}
+		${search}`)
+			.then(res => {
+				setItems(res.data);
+				setIsLoading(false);
 			})
-			.then(array => setItems(array))
+			.catch(err => console.error(err));
+
 
 	}
 
