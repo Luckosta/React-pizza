@@ -1,8 +1,13 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 
 function Cart() {
+
+	const items = useSelector(state => state.cart.itmes);
+	const dispath = useDispatch();
+
 	return (
 		<div className="container container--cart">
 			<div className="cart">

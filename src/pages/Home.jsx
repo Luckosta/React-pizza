@@ -7,17 +7,18 @@ import { SearchContext } from '../App';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId } from '../redux/slices/filterSlice';
 import axios from 'axios';
+import { selectFilter } from '../redux/selectFilter';
 
 
 
 
 function Home() {
-	
+
 
 	const [items, setItems] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 
-	const { categoryId, sortType } = useSelector(state => state.filter);
+	const { categoryId, sortType } = useSelector(selectFilter);
 	const dispathCategoryId = useDispatch();
 
 	const onChangeCategory = (id) => {
@@ -49,13 +50,9 @@ function Home() {
 	}
 
 
-
-
-
-
 	useEffect(() => {
 		setIsLoading(true);
-		request()
+		request();
 		window.scrollTo(0, 0);
 	}, [categoryId, sortType, searchValue]);
 
