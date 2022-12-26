@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId } from '../redux/slices/filterSlice';
 import axios from 'axios';
 import { selectFilter } from '../redux/selectFilter';
+import { requestForPizzas } from '../redux/slices/pizzasSlice';
 
 
 
@@ -15,43 +16,36 @@ import { selectFilter } from '../redux/selectFilter';
 function Home() {
 
 
-	const [items, setItems] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
+	//const [isLoading, setIsLoading] = useState(true);
 
 	const { categoryId, sortType } = useSelector(selectFilter);
-	const dispathCategoryId = useDispatch();
-
+	const { items, status } = useSelector(state => state.pizzas);
+	const dispath = useDispatch();
 	const onChangeCategory = (id) => {
-		dispathCategoryId(setCategoryId(id))
+		dispath(setCategoryId(id))
 	};
-
+	const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
+	const pizzas = items.map(el => <PizzaBlock key={el.id} {...el} />);
 
 	const { searchValue } = useContext(SearchContext);
 
-	const request = async () => {
-
+	const request = () => {
 		const category = categoryId !== 0 ? `category=${categoryId}` : '';
 		const stortBy = sortType.sortProp.replace('-', '');
 		const oreder = sortType.sortProp[0] === '-' ? 'desc' : 'asc';
 		const search = searchValue ? `&search=${searchValue}` : '';
 
-		const resp = await axios.get(`https://638c6f4dd2fc4a058a57acbe.mockapi.io/items?
-		${category}
-		&sortBy=${stortBy}
-		&order=${oreder}
-		${search}`)
-			.then(res => {
-				setItems(res.data);
-				setIsLoading(false);
-			})
-			.catch(err => console.error(err));
+		dispath(requestForPizzas({
+			category,
+			stortBy,
+			oreder,
+			search
+		}));
 
-
-	}
+	};
 
 
 	useEffect(() => {
-		setIsLoading(true);
 		request();
 		window.scrollTo(0, 0);
 	}, [categoryId, sortType, searchValue]);
@@ -64,21 +58,19 @@ function Home() {
 				<Sort />
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
-			<div className="content__items">
-
-				{
-					isLoading
-						? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-						: items.map(el => <PizzaBlock
-							key={el.id
-							}
-							{...el}
-						/>)
-				}
-
-			</div>
-
-
+			{
+				status === 'error'
+					? <div>
+					<h2>Что-то пошло не так.....</h2>
+					<p>Попробуйте перезагрузить страницу или вернитесь к нам позже</p>
+					</div>
+					: <div className="content__items">
+						{
+							status === 'loading'
+								? skeletons
+								: pizzas
+						}
+					</div>}
 		</div>
 	)
 }
