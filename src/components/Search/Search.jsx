@@ -1,19 +1,22 @@
 import iconSearch from './search.svg';
 import iconClose from './close.svg';
-import { useContext, useRef, useCallback, useState } from 'react';
-import { SearchContext } from '../../App';
+import { useRef, useCallback, useState } from 'react';
+
 import debounce from 'lodash.debounce';
+import { useDispatch } from 'react-redux';
+import { setSearch } from '../../redux/slices/filterSlice';
 
 
 
 
 function Search() {
+
+	const dispatсh = useDispatch();
 	const [value, setValue] = useState('');
 	const inputRef = useRef();
-	const {setSearchValue } = useContext(SearchContext);
 
 	const onClickClear = () => {
-		setSearchValue('');
+		dispatсh(setSearch(''));
 		setValue('');
 		inputRef.current.focus();
 	};
@@ -21,7 +24,7 @@ function Search() {
 
 	const updateSearchValue = useCallback(
 		debounce(str => {
-			setSearchValue(str);
+			dispatсh(setSearch(str));
 		}, 500), []
 	);
 

@@ -2,13 +2,11 @@ import Sort from '../components/Sort/Sort';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Categories from '../components/Categories/Categories';
 import Skeleton from '../components/PizzaBlock/Skeleton';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { SearchContext } from '../App';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCategoryId } from '../redux/slices/filterSlice';
-import axios from 'axios';
-import { selectFilter } from '../redux/selectFilter';
-import { requestForPizzas } from '../redux/slices/pizzasSlice';
+import { selectFilter, selectSearh, selectSearсh, setCategoryId } from '../redux/slices/filterSlice';
+import { requestForPizzas, selectPizzas } from '../redux/slices/pizzasSlice';
 
 
 
@@ -16,10 +14,9 @@ import { requestForPizzas } from '../redux/slices/pizzasSlice';
 function Home() {
 
 
-	//const [isLoading, setIsLoading] = useState(true);
-
 	const { categoryId, sortType } = useSelector(selectFilter);
-	const { items, status } = useSelector(state => state.pizzas);
+	const { items, status } = useSelector(selectPizzas);
+	const searchValue = useSelector(selectSearсh)
 	const dispath = useDispatch();
 	const onChangeCategory = (id) => {
 		dispath(setCategoryId(id))
@@ -27,7 +24,7 @@ function Home() {
 	const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
 	const pizzas = items.map(el => <PizzaBlock key={el.id} {...el} />);
 
-	const { searchValue } = useContext(SearchContext);
+	//const { searchValue } = useContext(SearchContext);
 
 	const request = () => {
 		const category = categoryId !== 0 ? `category=${categoryId}` : '';
@@ -48,6 +45,7 @@ function Home() {
 	useEffect(() => {
 		request();
 		window.scrollTo(0, 0);
+
 	}, [categoryId, sortType, searchValue]);
 
 
@@ -61,8 +59,8 @@ function Home() {
 			{
 				status === 'error'
 					? <div>
-					<h2>Что-то пошло не так.....</h2>
-					<p>Попробуйте перезагрузить страницу или вернитесь к нам позже</p>
+						<h2>Что-то пошло не так.....</h2>
+						<p>Попробуйте перезагрузить страницу или вернитесь к нам позже</p>
 					</div>
 					: <div className="content__items">
 						{
