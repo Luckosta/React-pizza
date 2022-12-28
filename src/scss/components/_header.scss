@@ -3,12 +3,10 @@
 .header {
   border-bottom: 1px solid $gray-line;
   padding: 40px 0;
- 
-	img{
-		margin-right: 10px;
-	}
+
 
   .container {
+
     display: grid;
 	 grid-template-columns:[startheader] auto[startinput] 1fr [startbutton]  auto[endheader] ;
     align-items: center;
@@ -29,10 +27,13 @@
   &__logo {
     display: grid;
 	 grid-template-columns: auto 1fr;
+	 justify-items: center;
+	 align-items: center;
 	 cursor: pointer;
-	
-    h1 {
-		margin-left: 15px;
+	 gap: 15px;
+   
+		h1 {
+		
       color: #181818;
       font-size: 24px;
       letter-spacing: 1%;
@@ -42,7 +43,7 @@
     }
 
     p {
-		margin-left: 15px;
+		
       color: #7b7b7b;
 		
     }

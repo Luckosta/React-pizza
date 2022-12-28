@@ -2,10 +2,9 @@ import Sort from '../components/Sort/Sort';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Categories from '../components/Categories/Categories';
 import Skeleton from '../components/PizzaBlock/Skeleton';
-import { useContext, useEffect } from 'react';
-import { SearchContext } from '../App';
+import {  useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectFilter, selectSearh, selectSearсh, setCategoryId } from '../redux/slices/filterSlice';
+import { selectFilter, selectSearсh, setCategoryId } from '../redux/slices/filterSlice';
 import { requestForPizzas, selectPizzas } from '../redux/slices/pizzasSlice';
 
 
