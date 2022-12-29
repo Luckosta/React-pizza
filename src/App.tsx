@@ -9,10 +9,8 @@ import MainLayout from './components/layouts/MainLayout';
 
 
 
+
 function App() {
-
-
-
 	return (
 		<Routes >
 			<Route path='/' element={<MainLayout />}>
