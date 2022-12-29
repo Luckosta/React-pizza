@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 
 function FullPizzas() {
 	const [pizza, setPizza] = useState({});
 	const { id } = useParams();
 	const { imageUrl, title, price } = pizza;
-
+	const navigate = useNavigate();
 
 
 	const fetchPizza = async () => {
@@ -15,7 +15,8 @@ function FullPizzas() {
 			const respPizza = await axios.get('https://638c6f4dd2fc4a058a57acbe.mockapi.io/items/' + id);
 			setPizza(respPizza.data);
 		} catch (error) {
-			throw new Error(error)
+			navigate('/');
+			throw new Error(error);
 		}
 	}
 
