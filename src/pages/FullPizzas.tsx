@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -18,7 +18,7 @@ function FullPizzas(): JSX.Element {
 		try {
 			const respPizza = await axios.get('https://638c6f4dd2fc4a058a57acbe.mockapi.io/items/' + id);
 			setPizza(respPizza.data);
-		} catch (error) {
+		} catch (error:any) {
 			navigate('/');
 			throw new Error(error);
 		}

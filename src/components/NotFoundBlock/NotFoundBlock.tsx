@@ -1,5 +1,6 @@
 
-function NotFoundBlock() {
+
+function NotFoundBlock(): JSX.Element{
 	return (
 		<div className='notfound__contnet'>
 			<span>😔</span>

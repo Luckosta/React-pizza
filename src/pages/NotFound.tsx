@@ -1,7 +1,7 @@
-import React from 'react';
+
 import NotFoundBlock from '../components/NotFoundBlock/NotFoundBlock';
 
-function NotFound() {
+function NotFound(): JSX.Element {
 	return (
 		<>
 			<NotFoundBlock />

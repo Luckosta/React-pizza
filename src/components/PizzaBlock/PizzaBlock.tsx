@@ -6,12 +6,21 @@ import { addProduct, selectCartItemById } from '../../redux/slices/cartSlice';
 
 const typesNames = ['тонкое', 'традиционное'];
 
+type PizzaBlockProps = {
+	id: string,
+	title: string,
+	price: number,
+	imageUrl: string,
+	sizes: number[],
+	types: number[]
+}
 
-function PizzaBlock({ id, title, price, imageUrl, sizes, types }) {
+
+function PizzaBlock({ id, title, price, imageUrl, sizes, types }: PizzaBlockProps): JSX.Element {
 	const dispatch = useDispatch();
 	const cartItem = useSelector(selectCartItemById(id));
-	const [activeType, setActiveType] = useState(0);
-	const [activeSize, setActiveSize] = useState(0);
+	const [activeType, setActiveType] = useState<number>(0);
+	const [activeSize, setActiveSize] = useState<number>(0);
 
 	const addedCount = cartItem ? cartItem.count : 0;
 

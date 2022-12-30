@@ -1,8 +1,8 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import Header from '../Header/Header'
+import Header from '../components/Header/Header'
 
-function MainLayout() {
+function MainLayout(): JSX.Element {
 	return (
 		<div className='wrapper'>
 			<Header />

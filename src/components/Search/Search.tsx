@@ -9,27 +9,30 @@ import { setSearch } from '../../redux/slices/filterSlice';
 
 
 
-function Search() {
+function Search(): JSX.Element {
 
 	const dispatсh = useDispatch();
 	const [value, setValue] = useState('');
-	const inputRef = useRef();
+	const inputRef = useRef<HTMLInputElement>(null);
 
 	const onClickClear = () => {
 		dispatсh(setSearch(''));
 		setValue('');
-		inputRef.current.focus();
+		//if(inputRef.current){
+		//	inputRef.current.focus();
+		//}
+		inputRef.current?.focus?.(); //optional chaining
 	};
 
 
 	const updateSearchValue = useCallback(
-		debounce(str => {
+		debounce((str:string) => {
 			dispatсh(setSearch(str));
 		}, 500), []
 	);
 
 
-	const onChnageInput = event => {
+	const onChnageInput = (event:any) => {
 		setValue(event.target.value);
 		updateSearchValue(event.target.value);
 	};

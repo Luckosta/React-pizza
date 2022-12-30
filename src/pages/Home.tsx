@@ -10,18 +10,18 @@ import { requestForPizzas, selectPizzas } from '../redux/slices/pizzasSlice';
 
 
 
-function Home() {
+function Home(): JSX.Element {
 
 
 	const { categoryId, sortType } = useSelector(selectFilter);
 	const { items, status } = useSelector(selectPizzas);
 	const searchValue = useSelector(selectSearсh)
 	const dispath = useDispatch();
-	const onChangeCategory = (id) => {
+	const onChangeCategory = (id:number) => {
 		dispath(setCategoryId(id))
 	};
 	const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
-	const pizzas = items.map(el => <PizzaBlock key={el.id} {...el} />);
+	const pizzas = items.map((el:any) => <PizzaBlock key={el.id} {...el} />);
 
 	//const { searchValue } = useContext(SearchContext);
 
@@ -31,7 +31,9 @@ function Home() {
 		const oreder = sortType.sortProp[0] === '-' ? 'desc' : 'asc';
 		const search = searchValue ? `&search=${searchValue}` : '';
 
-		dispath(requestForPizzas({
+		dispath(
+			// @ts-ignore
+			requestForPizzas({
 			category,
 			stortBy,
 			oreder,

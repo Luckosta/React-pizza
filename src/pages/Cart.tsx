@@ -3,17 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CartEmpty from '../components/CartEmpty/CartEmpty';
 import CartItem from '../components/CartItem/CartItem';
-import { clearCart, removeProduct, selectCart } from '../redux/slices/cartSlice';
+import { clearCart, selectCart } from '../redux/slices/cartSlice';
 
-function Cart() {
+function Cart(): JSX.Element {
 
 	const dispatch = useDispatch();
 
 	const { totalPrice, items } = useSelector(selectCart);
-	const dispath = useDispatch();
 
 
-	const totalCount = items.reduce((sum, item) => sum + item.count, 0)
+
+	const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0)
 
 	const onClickClear = () => {
 		if (window.confirm('Вы действительно хотите очистить каризну ?')) (
@@ -97,7 +97,7 @@ function Cart() {
 					</button>
 				</div>
 				<div className="content__items">
-					{items.map(item => (
+					{items.map((item: any) => (
 						<CartItem key={item.id} {...item} />
 					)
 					)}

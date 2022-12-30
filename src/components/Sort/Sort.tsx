@@ -1,11 +1,16 @@
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSort, setSortType } from '../../redux/slices/filterSlice';
 
 
-const sortItems = [
+type sortItem = {
+	name: string,
+	sortProp: string
+};
+
+const sortItems:sortItem[] = [
 	{
 		name: 'популярности(убыв.)',
 		sortProp: '-rating'
@@ -32,32 +37,32 @@ const sortItems = [
 	}];
 
 
-function Sort() {
-	const sortRef = useRef();
+
+
+function Sort(): JSX.Element {
+	const sortRef = useRef<HTMLDivElement>(null);
 	const sortType = useSelector(selectSort);
 	const dispathSortType = useDispatch();
 
 
 	const [sortState, setSortState] = useState(false);
 
-
-
-	const popupOnClick = (obj) => {
+	const popupOnClick = (obj:sortItem) => {
 		dispathSortType(setSortType(obj));
 		setSortState(false);
-		
+
 	}
 
 	useEffect(() => {
 		// Did mount 
-		const handleClickOutside = event => {
+		const handleClickOutside = (event: any) => {
 			if (!event.composedPath().includes(sortRef.current)) {
 				setSortState(false);
 			}
 		};
 		document.body.addEventListener('click', handleClickOutside);
 
-// Unmount 
+		// Unmount 
 		return () => {
 			document.body.removeEventListener('click', handleClickOutside)
 		}
@@ -87,13 +92,14 @@ function Sort() {
 			</div>
 			{sortState && (<div className="sort__popup">
 				<ul>
-					{sortItems.map((item, index) => {
+					{sortItems.map((obj, index) => {
 						return (
-							<li key={index}
-								onClick={() => popupOnClick(item)}
-								className={sortType.sortProp === item.sortProp ? 'active' : ''}
+							<li
+								key={index}
+								onClick={() => popupOnClick(obj)}
+								className={sortType.sortProp === obj.sortProp ? 'active' : ''}
 							>
-								{item.name}
+								{obj.name}
 							</li>
 						)
 					})}

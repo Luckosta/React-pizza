@@ -4,13 +4,13 @@ import NotFound from './pages/NotFound';
 import { Route, Routes } from 'react-router-dom';
 import Cart from './pages/Cart';
 import FullPizzas from './pages/FullPizzas';
-import MainLayout from './components/layouts/MainLayout';
+import MainLayout from './layouts/MainLayout';
 
 
 
 
 
-function App() {
+function App(): JSX.Element {
 	return (
 		<Routes >
 			<Route path='/' element={<MainLayout />}>
