@@ -10,6 +10,8 @@ type sortItem = {
 	sortProp: string
 };
 
+
+
 const sortItems:sortItem[] = [
 	{
 		name: 'популярности(убыв.)',
@@ -45,7 +47,7 @@ function Sort(): JSX.Element {
 	const dispathSortType = useDispatch();
 
 
-	const [sortState, setSortState] = useState(false);
+	const [sortState, setSortState] = useState<boolean>(false);
 
 	const popupOnClick = (obj:sortItem) => {
 		dispathSortType(setSortType(obj));
@@ -55,8 +57,8 @@ function Sort(): JSX.Element {
 
 	useEffect(() => {
 		// Did mount 
-		const handleClickOutside = (event: any) => {
-			if (!event.composedPath().includes(sortRef.current)) {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
 				setSortState(false);
 			}
 		};

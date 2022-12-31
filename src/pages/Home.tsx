@@ -17,13 +17,15 @@ function Home(): JSX.Element {
 	const { items, status } = useSelector(selectPizzas);
 	const searchValue = useSelector(selectSearсh)
 	const dispath = useDispatch();
-	const onChangeCategory = (id:number) => {
-		dispath(setCategoryId(id))
+
+	const onChangeCategory = (index:number):void => {
+		dispath(setCategoryId(index))
 	};
+
 	const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
 	const pizzas = items.map((el:any) => <PizzaBlock key={el.id} {...el} />);
 
-	//const { searchValue } = useContext(SearchContext);
+	
 
 	const request = () => {
 		const category = categoryId !== 0 ? `category=${categoryId}` : '';
@@ -53,7 +55,9 @@ function Home(): JSX.Element {
 	return (
 		<div className="container">
 			<div className="content__top">
-				<Categories value={categoryId} onClickCategory={onChangeCategory} />
+				<Categories 
+				value={categoryId} 
+				onClickCategory={onChangeCategory} />
 				<Sort />
 			</div>
 			<h2 className="content__title">Все пиццы</h2>

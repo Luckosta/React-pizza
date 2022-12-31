@@ -1,16 +1,17 @@
 
 
 type CategoriesProps = {
-	value: number,
-	onClickCategory: any
+	value: number;
+	onClickCategory: (index: number) => void;
 }
 
+const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
 function Categories({ value, onClickCategory }: CategoriesProps): JSX.Element {
 
 
 
-	const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
+
 
 
 	return (

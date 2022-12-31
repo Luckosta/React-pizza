@@ -16,23 +16,21 @@ function Search(): JSX.Element {
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	const onClickClear = () => {
+		
 		dispatсh(setSearch(''));
 		setValue('');
-		//if(inputRef.current){
-		//	inputRef.current.focus();
-		//}
 		inputRef.current?.focus?.(); //optional chaining
 	};
 
 
 	const updateSearchValue = useCallback(
-		debounce((str:string) => {
+		debounce((str: string) => {
 			dispatсh(setSearch(str));
 		}, 500), []
 	);
 
 
-	const onChnageInput = (event:any) => {
+	const onChnageInput = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(event.target.value);
 		updateSearchValue(event.target.value);
 	};
@@ -47,7 +45,7 @@ function Search(): JSX.Element {
 				className='search__input'
 				placeholder='Поиск пиццы' />
 			{value && <img
-				onClick={() => onClickClear()}
+				onClick={onClickClear}
 				src={iconClose}
 				alt="" />}
 		</div>
