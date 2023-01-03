@@ -3,9 +3,10 @@ import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Categories from '../components/Categories/Categories';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import {  useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectFilter, selectSearсh, setCategoryId } from '../redux/slices/filterSlice';
-import { requestForPizzas, selectPizzas } from '../redux/slices/pizzasSlice';
+import { requestForPizzas, selectPizzas, Status } from '../redux/slices/pizzasSlice';
+import { useAppDispatch } from '../redux/store';
 
 
 
@@ -16,7 +17,7 @@ function Home(): JSX.Element {
 	const { categoryId, sortType } = useSelector(selectFilter);
 	const { items, status } = useSelector(selectPizzas);
 	const searchValue = useSelector(selectSearсh)
-	const dispath = useDispatch();
+	const dispath = useAppDispatch();
 
 	const onChangeCategory = (index:number):void => {
 		dispath(setCategoryId(index))
@@ -30,15 +31,14 @@ function Home(): JSX.Element {
 	const request = () => {
 		const category = categoryId !== 0 ? `category=${categoryId}` : '';
 		const stortBy = sortType.sortProp.replace('-', '');
-		const oreder = sortType.sortProp[0] === '-' ? 'desc' : 'asc';
+		const order = sortType.sortProp[0] === '-' ? 'desc' : 'asc';
 		const search = searchValue ? `&search=${searchValue}` : '';
 
 		dispath(
-			// @ts-ignore
 			requestForPizzas({
 			category,
 			stortBy,
-			oreder,
+			order,
 			search
 		}));
 
@@ -62,14 +62,14 @@ function Home(): JSX.Element {
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
 			{
-				status === 'error'
+				status === Status.ERROR
 					? <div>
 						<h2>Что-то пошло не так.....</h2>
 						<p>Попробуйте перезагрузить страницу или вернитесь к нам позже</p>
 					</div>
 					: <div className="content__items">
 						{
-							status === 'loading'
+							status === Status.LOADING
 								? skeletons
 								: pizzas
 						}

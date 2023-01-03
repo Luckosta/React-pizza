@@ -2,40 +2,40 @@ import React, { useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSort, setSortType } from '../../redux/slices/filterSlice';
+import { selectSort, setSortType, SortPropEnum } from '../../redux/slices/filterSlice';
 
 
 type sortItem = {
 	name: string,
-	sortProp: string
+	sortProp: SortPropEnum
 };
 
 
 
-const sortItems:sortItem[] = [
+const sortItems: sortItem[] = [
 	{
 		name: 'популярности(убыв.)',
-		sortProp: '-rating'
+		sortProp: SortPropEnum.RATING_ASC
 	},
 	{
 		name: 'популярности(возр.)',
-		sortProp: 'rating'
+		sortProp: SortPropEnum.RATING_DESC
 	},
 	{
 		name: 'цене(убыв.)',
-		sortProp: '-price'
+		sortProp: SortPropEnum.PRICE_ASC
 	},
 	{
 		name: 'цене(возр.)',
-		sortProp: 'price'
+		sortProp: SortPropEnum.PRICE_DESC
 	},
 	{
 		name: 'алфавиту(убыв.)',
-		sortProp: '-title'
+		sortProp: SortPropEnum.TITLE_ASC
 	},
 	{
 		name: 'алфавиту(возр.)',
-		sortProp: 'title'
+		sortProp: SortPropEnum.TITLE_DESC
 	}];
 
 
@@ -49,7 +49,7 @@ function Sort(): JSX.Element {
 
 	const [sortState, setSortState] = useState<boolean>(false);
 
-	const popupOnClick = (obj:sortItem) => {
+	const popupOnClick = (obj: sortItem) => {
 		dispathSortType(setSortType(obj));
 		setSortState(false);
 
