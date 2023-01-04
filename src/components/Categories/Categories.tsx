@@ -1,4 +1,5 @@
-
+import useWhyDidYouUpdate from 'ahooks/lib/useWhyDidYouUpdate';
+import { memo } from 'react';
 
 type CategoriesProps = {
 	value: number;
@@ -7,11 +8,12 @@ type CategoriesProps = {
 
 const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
-function Categories({ value, onClickCategory }: CategoriesProps): JSX.Element {
+function add () {
+
+}
 
 
-
-
+const Categories = memo(function Categories({ value, onClickCategory }: CategoriesProps): JSX.Element {
 
 
 	return (
@@ -29,7 +31,7 @@ function Categories({ value, onClickCategory }: CategoriesProps): JSX.Element {
 			</ul>
 		</div>
 	);
-}
+})
 
 
 export default Categories;

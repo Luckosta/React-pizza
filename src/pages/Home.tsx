@@ -2,7 +2,7 @@ import Sort from '../components/Sort/Sort';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Categories from '../components/Categories/Categories';
 import Skeleton from '../components/PizzaBlock/Skeleton';
-import {  useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectFilter, selectSearсh, setCategoryId } from '../redux/slices/filterSlice';
 import { requestForPizzas, selectPizzas, Status } from '../redux/slices/pizzasSlice';
@@ -19,14 +19,17 @@ function Home(): JSX.Element {
 	const searchValue = useSelector(selectSearсh)
 	const dispath = useAppDispatch();
 
-	const onChangeCategory = (index:number):void => {
+
+	const onChangeCategory = useCallback((index: number): void => {
 		dispath(setCategoryId(index))
-	};
+	
+	}, []);
+
 
 	const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
-	const pizzas = items.map((el:any) => <PizzaBlock key={el.id} {...el} />);
+	const pizzas = items.map((el: any) => <PizzaBlock key={el.id} {...el} />);
 
-	
+
 
 	const request = () => {
 		const category = categoryId !== 0 ? `category=${categoryId}` : '';
@@ -36,11 +39,11 @@ function Home(): JSX.Element {
 
 		dispath(
 			requestForPizzas({
-			category,
-			stortBy,
-			order,
-			search
-		}));
+				category,
+				stortBy,
+				order,
+				search
+			}));
 
 	};
 
@@ -55,10 +58,10 @@ function Home(): JSX.Element {
 	return (
 		<div className="container">
 			<div className="content__top">
-				<Categories 
-				value={categoryId} 
-				onClickCategory={onChangeCategory} />
-				<Sort />
+				<Categories
+					value={categoryId}
+					onClickCategory={onChangeCategory} />
+				<Sort sortValue={sortType}/>
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
 			{

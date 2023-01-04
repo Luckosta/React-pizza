@@ -12,7 +12,7 @@ export enum SortPropEnum {
 }
 
 
-type Sort = {
+export type Sort = {
    name: string;
    sortProp: SortPropEnum;
 };

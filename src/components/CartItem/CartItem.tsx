@@ -1,7 +1,6 @@
-import React from 'react'
 import { useDispatch } from 'react-redux';
 import { addProduct, CartItemType, minusItem, removeProduct } from '../../redux/slices/cartSlice';
-
+import clsx from 'clsx';
 
 function CartItem({ id, title, type, price, imageUrl, count, size }:CartItemType): JSX.Element {
 
@@ -35,7 +34,7 @@ function CartItem({ id, title, type, price, imageUrl, count, size }:CartItemType
 				<button
 					disabled={count === 1}
 					onClick={onClickMinus}
-					className="button button--outline button--circle cart__item-count-minus">
+					className={clsx("button button--outline button--circle cart__item-count-minus", {"cart__item-count-minus--disabled": count === 1})}>
 					<svg
 						width="10"
 						height="10"
