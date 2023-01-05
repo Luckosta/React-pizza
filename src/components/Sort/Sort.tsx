@@ -1,46 +1,13 @@
 import React, { memo, useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectSort, setSortType, Sort, SortPropEnum } from '../../redux/slices/filterSlice';
-
-
-type sortItem = {
-	name: string,
-	sortProp: SortPropEnum
-};
+import { useDispatch } from 'react-redux';
+import { setSortType } from '../../redux/slices/filterSlice';
+import { sortItem, SortProps } from './Sort.type';
+import { sortItems } from './SortItems';
 
 
 
-const sortItems: sortItem[] = [
-	{
-		name: 'популярности(убыв.)',
-		sortProp: SortPropEnum.RATING_ASC
-	},
-	{
-		name: 'популярности(возр.)',
-		sortProp: SortPropEnum.RATING_DESC
-	},
-	{
-		name: 'цене(убыв.)',
-		sortProp: SortPropEnum.PRICE_ASC
-	},
-	{
-		name: 'цене(возр.)',
-		sortProp: SortPropEnum.PRICE_DESC
-	},
-	{
-		name: 'алфавиту(убыв.)',
-		sortProp: SortPropEnum.TITLE_ASC
-	},
-	{
-		name: 'алфавиту(возр.)',
-		sortProp: SortPropEnum.TITLE_DESC
-	}];
-
-type SortProps = {
-	sortValue: Sort
-};
 
 
 const SortPopup = memo(function SortPopup({sortValue}:SortProps): JSX.Element {

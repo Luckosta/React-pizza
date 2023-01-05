@@ -1,17 +1,9 @@
-import useWhyDidYouUpdate from 'ahooks/lib/useWhyDidYouUpdate';
 import { memo } from 'react';
+import { CategoriesProps } from './Categories.type';
 
-type CategoriesProps = {
-	value: number;
-	onClickCategory: (index: number) => void;
-}
+
 
 const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
-
-function add () {
-
-}
-
 
 const Categories = memo(function Categories({ value, onClickCategory }: CategoriesProps): JSX.Element {
 

@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
-import { addProduct, CartItemType, minusItem, removeProduct } from '../../redux/slices/cartSlice';
+import { addProduct, minusItem, removeProduct } from '../../redux/slices/cartSlice';
 import clsx from 'clsx';
+import { CartItemType } from '../../redux/slices/sliceTypes';
 
 function CartItem({ id, title, type, price, imageUrl, count, size }:CartItemType): JSX.Element {
 
@@ -10,14 +11,14 @@ function CartItem({ id, title, type, price, imageUrl, count, size }:CartItemType
 		dispatch(addProduct({
 			id,
 		}as CartItemType))
-	}
+	};
 	const onClickMinus = () => {
 		dispatch(minusItem(id))
-	}
+	};
 
 	const onClickRemove = () => {
 		dispatch(removeProduct(id))
-	}
+	};
 
 	return (
 		<div className="cart__item" >

@@ -13,7 +13,6 @@ import { useAppDispatch } from '../redux/store';
 
 function Home(): JSX.Element {
 
-
 	const { categoryId, sortType } = useSelector(selectFilter);
 	const { items, status } = useSelector(selectPizzas);
 	const searchValue = useSelector(selectSearсh)

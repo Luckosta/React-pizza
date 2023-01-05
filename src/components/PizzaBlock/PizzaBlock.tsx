@@ -1,19 +1,12 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addProduct, CartItemType, selectCartItemById } from '../../redux/slices/cartSlice';
+import { addProduct, selectCartItemById } from '../../redux/slices/cartSlice';
+import { CartItemType } from '../../redux/slices/sliceTypes';
+import { PizzaBlockProps } from './PizzaBlock.type';
 
 
 const typesNames = ['тонкое', 'традиционное'];
-
-type PizzaBlockProps = {
-	id: string,
-	title: string,
-	price: number,
-	imageUrl: string,
-	sizes: number[],
-	types: number[]
-}
 
 
 function PizzaBlock({ id, title, price, imageUrl, sizes, types }: PizzaBlockProps): JSX.Element {
