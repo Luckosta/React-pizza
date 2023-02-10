@@ -13,6 +13,9 @@ import { useAppDispatch } from '../redux/store';
 
 function Home(): JSX.Element {
 
+
+
+
 	const { categoryId, sortType } = useSelector(selectFilter);
 	const { items, status } = useSelector(selectPizzas);
 	const searchValue = useSelector(selectSearсh)
@@ -21,7 +24,7 @@ function Home(): JSX.Element {
 
 	const onChangeCategory = useCallback((index: number): void => {
 		dispath(setCategoryId(index))
-	
+
 	}, []);
 
 
@@ -60,7 +63,7 @@ function Home(): JSX.Element {
 				<Categories
 					value={categoryId}
 					onClickCategory={onChangeCategory} />
-				<Sort sortValue={sortType}/>
+				<Sort sortValue={sortType} />
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
 			{
